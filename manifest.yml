@@ -1,0 +1,6 @@
+applications:
+- name: Contracts-UI
+path: build/
+instances: 1
+buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+memory: 1024M
