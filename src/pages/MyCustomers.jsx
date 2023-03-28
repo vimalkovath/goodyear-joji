@@ -1,14 +1,39 @@
-import { Box } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import { mockDataContacts } from "../data/mockData";
 import Header from "../components/Header";
-import { useTheme } from "@mui/material";
+import Swal from 'sweetalert2';
+// import 'sweetalert2/src/sweetalert2.scss'
 
 export default function MyCustomers() {
+  // useGridApiEventHandler(apiRef, 'cellMouseOver', handleEvent);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+
+  const handleMouseOver = (name) => {
+    // alert(`Movie ${name} clicked`)
+    const a=`<div><h1>Hi</h1><h5>${name}</h5></div>`
+
+    Swal.fire({
+      title: 'Do you want to Open?',
+      html:a,
+      // showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Open',
+      // denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+
+  };
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "registrarId", headerName: "Registrar ID" },
@@ -17,6 +42,23 @@ export default function MyCustomers() {
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
+      renderCell: ({ row: { name } }) => {
+        return (
+          <Box
+            width="60%"
+            m="0 auto"
+            p="5px"
+            display="flex"
+            justifyContent="center"
+            borderRadius="4px"
+          >
+            <Typography color={colors.grey[100]} sx={{ ml: "5px" }} 
+            onMouseOver={()=>handleMouseOver(name)}>
+            {name}
+            </Typography>
+          </Box>
+        );
+      },
     },
     {
       field: "age",
@@ -51,6 +93,31 @@ export default function MyCustomers() {
       flex: 1,
     },
   ];
+
+
+  // const handleEvent = (
+  //   params, // GridRowParams
+  //   event, // MuiEvent<React.MouseEvent<HTMLElement>>
+  //   details, // GridCallbackDetails
+  // ) => {
+  //   alert(`Movie "${params.row.name}" clicked`)
+  // };
+  const handleCellClick = (
+    params, // GridCellParams
+    event, // MuiEvent<React.MouseEvent<HTMLElement>>
+    details, // GridCallbackDetails
+  ) => {
+    console.log(params)
+    alert(`Movie "${params.value}" clicked`)
+  };
+  const handleCellMouseOver = (
+    params, // GridCellParams
+    event, // MuiEvent<React.MouseEvent<HTMLElement>>
+    details, // GridCallbackDetails
+  ) => {
+    console.log(params)
+    alert(`Movie "${params.value}" clicked`)
+  };
 
   return (
     <Box m="20px">
@@ -91,9 +158,23 @@ export default function MyCustomers() {
         }}
       >
         <DataGrid
+        // onRowClick={handleEvent}
+        onCellClick={handleCellClick}
+        onCellMouseOver={handleCellMouseOver}
+        // onCellClick={(params: GridCellParams, event: MuiEvent<React.MouseEvent>) => {
+        //   event.defaultMuiPrevented = true;
+        // }}
           rows={mockDataContacts}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          sx={{
+            boxShadow: 2,
+            border: 2,
+            borderColor: 'primary.light',
+            '& .MuiDataGrid-cell:hover': {
+              color: 'primary.main',
+            },
+          }}
         />
       </Box>
     </Box>
