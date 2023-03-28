@@ -269,13 +269,12 @@ const Dashboard = () => {
           </Box>
         </div>
 
-        {routes.map((route, index) => {
+        {/* {routes.map((route, index) => {
           return (
             <NavLink to={route.path} key={index}>
               <div className="tile job">
                 <div className="header">
                   <div className="count">{route.icon}</div>
-                  {/* <div className="title">Jobs</div> */}
                 </div>
                 <div className="body">
                   <div className="title"> {route.name}</div>
@@ -283,7 +282,7 @@ const Dashboard = () => {
               </div>
             </NavLink>
           );
-        })}
+        })}  */}
       </div>
     </div>
   );
