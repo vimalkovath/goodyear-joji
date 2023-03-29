@@ -20,6 +20,7 @@ import QuestionairSurvey from "./pages/QuestionairSurvey";
 import PublicForum from "./pages/PublicForum";
 import Databse from "./pages/Databse";
 import IndustryMap from "./pages/IndustryMap";
+import Account from "./components/MyCustomer/Account";
 
 // import { getLocalStorage } from "./utilities/storage";
 
@@ -41,6 +42,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboardpage />} />
             <Route path="/MyCustomers" element={<MyCustomers />} />
+            <Route path="/MyCustomers/Account" element={<Account />} />
             <Route path="/MyNotification" element={<MyNotification />} />
             <Route path="/MyPerformance" element={<MyPerformance />} />
             <Route path="/MyPlan" element={<MyPlan />} />

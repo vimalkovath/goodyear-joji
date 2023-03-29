@@ -6,11 +6,14 @@ import Header from "../components/Header";
 import Swal from 'sweetalert2';
 // import 'sweetalert2/src/sweetalert2.scss'
 
+import { useNavigate } from "react-router-dom";
+
 export default function MyCustomers() {
   // useGridApiEventHandler(apiRef, 'cellMouseOver', handleEvent);
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
 
 
   const handleMouseOver = (name) => {
@@ -27,7 +30,8 @@ export default function MyCustomers() {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
+        // Swal.fire('Saved!', '', 'success')
+        navigate("/MyCustomers/Account");
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
       }
